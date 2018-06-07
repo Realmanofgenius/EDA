@@ -11,6 +11,4 @@ https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html
 
 stackoverflow.com
 
-https://rstudio-pubs-static.s3.amazonaws.com/
-
 rpubs.com
