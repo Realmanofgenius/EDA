@@ -1,3 +1,9 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
 
 _______________________________________________________
 
@@ -31,6 +37,7 @@ df <- read.csv('wineQualityReds.csv')
 Abstract
 
 This project is for the exploration of data on Red Wine and the chemical properties of the wine that may affect the quality of the wine.  The project data is imported into RStudio for more exploratory data analysis.
+
 ```{r}
 # Exploring the data structure
 
@@ -40,6 +47,7 @@ str(df)
 
 summary(df)
 ```
+
 A few personal observations so far of the data:
 
 *There are 13 variables and 1599 observations
@@ -53,6 +61,7 @@ df$X <- NULL
 
 summary(df)
 ```
+
 Now that the X variable is removed, we can focus in our the data analysis within our dataset.
 
 #Univariate Plots Section
@@ -162,17 +171,19 @@ grid.arrange(p1,p2, ncol=2)
 
 rm(p1,p2)
 ```
-#Univariate Analysis
 
-### What is the structure of your dataset?
+Univariate Analysis
+===================
+
+###What is the structure of your dataset?
 
 There are 12 variables, with 1,599 observations.
 
-### What is/are the main feature(s) of interest in your dataset?
+###What is/are the main feature(s) of interest in your dataset?
 
 The main interest in the dataset is what variables positively and negatively affect the quality of red wine.
 
-### What other features in the dataset do you think will help support your investigation into your feature(s) of interest?
+###What other features in the dataset do you think will help support your investigation into your feature(s) of interest?
 
 I believe that factors including, but not limited to alcohol, density, residual sugar, and pH will make a difference in the quality of the wine.
 
@@ -192,10 +203,10 @@ I used the sqrt function to tidy the Fixed.acidity, citric.acid, free.sulfur.dio
 
 I removed the X variable, which was used for indexing in the dataset.
 
-#Bivariate Plots Section
+Bivariate Plots Section
+=======================
 
 The first relationship I am interested in determining is between free.sulfur.dioxide and total.sulfur.dioxide.  Not knowing much about either or how it translates into making wine, I am interested in seeing if the variables are correlated in any way.
-
 
 ```{r, warning=FALSE, message=FALSE}
 #Determining relationships
@@ -203,15 +214,18 @@ ggplot(aes(x=free.sulfur.dioxide, y=total.sulfur.dioxide), data=df)+
        geom_boxplot(alpha=.5,color='red')+
          geom_jitter(alpha = .5)
 ```
+
 The relationship seems to show a positively correlated relationship between the free.sulfur.dioxide and total.sulfur.dioxide.  As one increase, so does the other in most cases.
 
 The next relationship I wanted to examine was between citric.acid and quality.  It would seem that freshness and flavor that citric.acid brings would make the wine taste better.
+
 ```{r, warning=FALSE, message=FALSE}
 #Determining relationships
 ggplot(aes(x=citric.acid, y=quality), data=df)+
        geom_boxplot(alpha=.5,color='red')+
          geom_jitter(alpha = .5)
 ```
+
 There is no strong correlation apparent between citric.acid and the quality of the wine, however, most wines have a citric acid below .5 and are between 4.5 and 6.5 in quality.  A small impact relationship is present, but not enough that we can definitively say that citric.acid affects the quality of wine strongly.
 
 I am now going to see if residual.sugar has any strong effect on the quality of wine.  Taste preferences can vary for sweet or dry wine, so I believe that this will have no strong correlation to quality.
@@ -222,6 +236,7 @@ ggplot(aes(x=residual.sugar, y=quality), data=df)+
        geom_boxplot(alpha=.5,color='red')+
          geom_jitter(alpha = .5)
 ```
+
 Surprise!  The residual.sugar amount of most of the wines already less than 4, but they all have varying levels of quality.  This shows that dry wines are typically rated higher quality than those that are sweet, but some of this may be related to the fact that most of the wines are not sweet to begin with.  Like citric.acid, the quality of the wines are mostly between 4.5 and 6.5, with a chunk also around 7.  Still, we can say that this is a correlation that needs more examination.
 
 Next, I want to examine chlorides or the amount of salt in wines and see if there is any relationship to quality of the wine.
@@ -232,20 +247,25 @@ ggplot(aes(x=chlorides, y=quality), data=df)+
        geom_boxplot(alpha=.5,color='red')+
          geom_jitter(alpha = .5)
 ```
+
 It looks like there is some correlation between the amount of chlorides in wine and the quality of the wine.  The less chloride in the wine, the less salty the wine, which seems to mean a better taste.  Most of the wines do not have many chlorides though, with a majority being less than 0.2.  This breakdown looks fairly similar to the residual.sugar plot.  Since they are similar, I want to compare the two variables on a plot.
+
 ```{r, warning=FALSE, message=FALSE}
 #Determining relationships
 ggplot(aes(x=residual.sugar, y=chlorides), data=df)+
        geom_boxplot(alpha=.5,color='red')+
          geom_jitter(alpha = .5)
 ```
+
 Definitely a lot of correlation there between the two variables, but a few outliers.  Next I want to see if there is any relation between the alcohol content and quality of wine.
+
 ```{r, warning=FALSE, message=FALSE}
 #Determining relationships
 ggplot(aes(x=alcohol, y=quality), data=df)+
        geom_boxplot(alpha=.5,color='red')+
          geom_jitter(alpha = .5)
 ```
+
 There is a strong correlation here between alcohol content and the quality of wine.  As the alcohol content increases, so does the quality in most cases. Alcohol content less than 10 for the most part has a wine quality between 4.5 and 6.5, with a few outliers.  As we step up in alcohol content between 10 an 12, the quality varies between 4.5 and 6.5 again, but also has a lot of wines in the 6.5 to 7.5 quality.  Most wines with alcohol content greater than 12 have a quality of 6.5 or greater.
 
 Next, I want to take a look at volatile.acidity to see if there is a relationship between this variable and the quality of wine.  High amounts of volatile.acidity usually makes wine have a vinegar taste that is strong and pugnent.
@@ -256,6 +276,7 @@ ggplot(aes(x=volatile.acidity, y=quality), data=df)+
        geom_boxplot(alpha=.5,color='red')+
          geom_jitter(alpha = .5)
 ```
+
 It becomes apparent that the lower volatile.acidity translates into higher quality wines, whereas higher volatile.acidity results in mostly lower quality wines.  This makes sense because people want to drink wine, not drink vinegar.
 
 Next, I want to look at fixed.acidity to see if there is correlation to wine quality.
@@ -270,24 +291,29 @@ ggplot(aes(x=fixed.acidity, y=quality), data=df)+
 There are low amounts of fixed.acidity across the board , with most below 12 and a majority below 10.  Concentrations of wine qualities of 5 and 6 are prevelant.  Still, we do not see a strong correlation here, but this variable should be investigated further in the multivariate analysis section.
 
 I want to see if density has any affect on wine quality.
+
 ```{r, warning=FALSE, message=FALSE}
 #Determining relationships
 ggplot(aes(x=density, y=quality), data=df)+
        geom_boxplot(alpha=.5,color='red')+
          geom_jitter(alpha = .5)
 ```
+
 Although most of the density for the wines are between .995 and 1, there seems to be no real correlation between the density and quality of the wine.
 
 Next, I want to investigate if pH has any effect on wine quality.
+
 ```{r, warning=FALSE, message=FALSE}
 #Determining relationships
 ggplot(aes(x=pH, y=quality), data=df)+
        geom_boxplot(alpha=.5,color='red')+
          geom_jitter(alpha = .5)
 ```
-This plot looks very similar to the density plot before this one.  Most of the wines are between 3 and 3.5 pH, while the quality is all over the place.  I don't see any correlation from this plot, but we will investigate further shortly.
+
+This plot looks very similar to the density plot before this one. Most of the wines are between 3 and 3.5 pH, while the quality is all over the place.  I don't see any correlation from this plot, but we will investigate further shortly.
 
 Lastly, we will look at sulphates and it there is correlation to wine quality.
+
 ```{r, warning=FALSE, message=FALSE}
 #Determining relationships
 ggplot(aes(x=sulphates, y=quality), data=df)+
@@ -297,7 +323,8 @@ ggplot(aes(x=sulphates, y=quality), data=df)+
 
 Most all of the wines are less than 1 sulphate, but the wine quality is concentrated in three spots, at 5, 6, and 7.  As the number of sulphates increase, so does the quality in general.  There is not enough to really say there is a strong correlation, but some relationship is evident.
 
-#Bivariate Analysis
+Bivariate Analysis
+==================
 
 ### Talk about some of the relationships you observed in this part of the investigation. How did the feature(s) of interest vary with other features in the dataset?
 
@@ -311,27 +338,34 @@ I was surprised that residual.sugar and chlorides were closely correlated.
 
 Finding that alcohol content greatly affected the taste and quality of red wine was the strongest relationship variable.
 
-# Multivariate Plots Section
+Multivariate Plots Section
+==========================
 
 I want to examine further the four variables that we concluded may have a relationship to the quality of wine:  alcohol, fixed.acidity, volatile.acidity, and pH.
 I wanted to re-examine the relationship between fixed.acidity and quality of red wine, with an emphasis on the alcohol content.  I focused on the alcohol content since we are certain that is a factor in the quality of wine.
+
 ```{r}
 #Determining relationships
  ggplot(df, aes(x= sulphates, y=alcohol, color =factor(quality) ))+
       geom_point(alpha=0.5,size=2)+
-      geom_smooth(method = "lm", se = FALSE,size=1)  +
+      geom_smooth(method = "lm", se = FALSE,size=1)+
+  theme_dark()+
       scale_color_brewer(type='seq', guide=guide_legend(title=' Wine Quality'))
 ```
+
 It looks like the obvious of higher alcohol content equaling higher wine quality is displayed.  Since most of the quality is all over the place on the plot and sulphates are almost all between 0.5 and 1.0, we can say that there is a correlation between sulphates and the quality of red wine, just not one as strong as the relationship between alcohol and quality.
 
 Next, I want to see how volative acidity is related to alcohol and the quality of wine.  
+
 ```{r}
 #Determining relationships
  ggplot(df, aes(x= volatile.acidity, y=alcohol, color =factor(quality) ))+
       geom_point(alpha=0.5,size=2)+
-      geom_smooth(method = "lm", se = FALSE,size=1)  +
+      geom_smooth(method = "lm", se = FALSE,size=1)+
+  theme_dark()+
       scale_color_brewer(type='seq', guide=guide_legend(title=' Wine Quality'))
 ```
+
 We can also see in this plot that high quality wines tend to contain higher alcohol content levels.  We can see that most higher quality wines have low volatile.acidity levels.  This allows us to see that there is an impactful negative correlation.  We will see how impacful the correlation is shortly.
 
 I want to see if citric.acid and the alcohol content have strong impacts on the quality of the wine.
@@ -340,7 +374,8 @@ I want to see if citric.acid and the alcohol content have strong impacts on the 
 #Determining relationships
  ggplot(df, aes(x= citric.acid, y=alcohol, color =factor(quality) ))+
       geom_point(alpha=0.5,size=2)+
-      geom_smooth(method = "lm", se = FALSE,size=1)  +
+      geom_smooth(method = "lm", se = FALSE,size=1)+
+  theme_dark()+
       scale_color_brewer(type='seq', guide=guide_legend(title=' Wine Quality'))
 ```
 
@@ -352,9 +387,11 @@ I wanted to see if there was a negative relationship between citric.acid and vol
 #Determining relationships
  ggplot(df, aes(x= citric.acid, y=volatile.acidity, color =factor(quality) ))+
       geom_point(alpha=0.5,size=2)+
-      geom_smooth(method = "lm", se = FALSE,size=1)  +
+      geom_smooth(method = "lm", se = FALSE,size=1)+
+  theme_dark()+
       scale_color_brewer(type='seq', guide=guide_legend(title='Wine Quality'))
 ```
+
 After this plot, we can see that most wines have between 0 and 0.75 citric.acid, but most higher quality wines are between 0.25 and 0.75.  There is a negative correlation between volatile.acidity and citric.acid, similar to that of quality and volatile.acidity.  We can at this point know that there is an impact of both citric.acid and volatile.acidity on the quality of wine.
 
 The last plot I want to make for multivariate is to determine the relationship between pH and alcohol content of our wines.
@@ -363,14 +400,15 @@ The last plot I want to make for multivariate is to determine the relationship b
 #Determining relationships
  ggplot(df, aes(x= pH, y=alcohol, color =factor(quality) ))+
       geom_point(alpha=0.5,size=2)+
-      geom_smooth(method = "lm", se = FALSE,size=1)  +
+      geom_smooth(method = "lm", se = FALSE,size=1)+
+  theme_dark()+
       scale_color_brewer(type='seq', guide=guide_legend(title=' Wine Quality'))
 ```
 
 We can determine by the plot that there is a positive relationship between alcohol content and the pH of wines in our dataset.  As the alcohol content increases, generally the pH of wine also increases.  This is especially true with our wines that scored a 6, 7, or 8 in quality.  Since these two are correlated, we can say that pH does have some impact on the quality of wine.
 
-
-# Multivariate Analysis
+Multivariate Analysis
+=====================
 
 ### Talk about some of the relationships you observed in this part of the investigation. Were there features that strengthened each other in terms of looking at your feature(s) of interest?
 
@@ -380,84 +418,76 @@ There is positive correlation between the pH content and alcohol content of wine
 
 I am surprised that some of the variables appear to be related strongly and that some variables are not clearly correlated with quality or with each other.
 
-# Final Plots and Summary
+Final Plots and Summary
+=======================
 
-### Plot One
-
-The first plot will be a number correlation matrix that will examine the relationship between the variables and determine the amount of positive or negative correlation to each other.
-
-```{r}
-#Correlation Plot
-cor.mtest <- function(mat, ...) {
-    mat <- as.matrix(mat)
-    n <- ncol(mat)
-    p.mat<- matrix(NA, n, n)
-    diag(p.mat) <- 0
-    for (i in 1:(n - 1)) {
-        for (j in (i + 1):n) {
-            tmp <- cor.test(mat[, i], mat[, j], ...)
-            p.mat[i, j] <- p.mat[j, i] <- tmp$p.value
-        }
-    }
-  colnames(p.mat) <- rownames(p.mat) <- colnames(mat)
-  p.mat
-}
-
-p.mat <- cor.mtest(df)
-
-corrplot(
-    cor(df, method="pearson"),
-    method="number", 
-    type="full", 
-    p.mat = p.mat, 
-    sig.level = 0.05,
-    tl.srt=45,
-    tl.col="black",
-    order="hclust",
-    diag=FALSE
-)
-```
- 
-### Description One
-
-As we can see, there are a lot of interesting finds that provide clarification on the dataset.  This plot also gives us concrete relationships and their significance level at a .05 confidence interval.  We can see that the relationship between alcohol content and quality is .48, which shows a strong correlation between those variables.  Other strong positive correlations to quality include sulphates at .25, citric.acid at .23, and fixed.acidity at .12.  Quality is negatively correlated with volatile.acidity at -.39, followed further behind by total.sulfur.dioxide at -.19, density at -.17, and chlorides at -.13.
-
-### Plot Two
-
-The next plot I want to examine the relationship between the negative correlation of volatile.acidity and the positive correlation of alcohol related to wine quality.  We will display this on a heat map plot.
-```{r}
-#Heat Map
-ggplot(aes(y=alcohol, x=volatile.acidity, fill=quality),
-       data=df)+
-  geom_tile()+
-  scale_fill_gradientn(colors=colorRampPalette(c('green', 'red'))(100))
-
-
-```
-
-### Description Two
-
-The heat map plot shows the strong correlation between the two variables and the impact on wine qualities.  We see a lot more red dots at the top left of the plot indicating that higher wine quality is related to higher alcohol levels and lower volatile.acidity.  Green dots indicating lower wine quality are more present at the bottom of the plot where alcohol content is lower and are also more present where volatile.acidity is higher.
-
-### Plot Three
-
-The final plot will examine the mean or average of wine quality relative to the alcohol content.  This should be interesting to see if there is a constant upward movement in the mean of alcohol content relative to quality.  It will also let us see amounts of each quality level of wine.
+Plot One
+--------
+##Volatile.acidity versus Quality
 
 ```{r}
-#Alcohol to Quality of Wine
-ggplot(data = df, aes(quality, alcohol, color = quality))+
-  geom_jitter(alpha = 1/3)+
+#Volatile.acidity comparative to Quality
+ggplot(data=df, aes(x=quality,y=volatile.acidity,color=factor(quality)))+
+  coord_cartesian(xlim=c(3.0,9.0),
+                  ylim=c(0.0,1.6))+
+  geom_jitter()+
+  scale_colour_brewer(type="seq", palette = "Greens")+
   geom_line(stat = 'summary', fun.y = mean, color = 'black')+
-  scale_color_gradientn(colours = rainbow(6))+
-  ggtitle('Quality of Wine Relative to Alcohol Content')
+  theme_dark()+
+labs(x='Quality (Score between 3 and 9)',
+       y='Volatile Acidity (g/ dm^3)',
+       title='Relationship of Volatile Acidity versus Quality')
+```
+
+Description One
+---------------
+We can see that as the quality score increases, mean volatile.acidity decreases.  We also see many wines of quality 5 and 6 in the plot.
+
+
+Plot Two
+--------
+##Sulphates Versus Alcohol
+
+```{r}
+ggplot(data=df, aes(x=sulphates,y=alcohol,color=factor(quality)))+
+  coord_cartesian(xlim=c(0.25,2.0),
+                  ylim=c(7.5,15))+
+  geom_jitter()+
+  scale_colour_brewer(type="seq", palette = "Reds")+
+  theme_dark()+
+  labs(x='Sulphates (g/l)',
+       y='Alcohol (% by Volume)',
+       title='Relationship of Sulphates Vs Alcohol with colored quality levels')
+```
+
+Description Two
+---------------
+We can see that Sulphates are clustered betwen 0.5 and 1.0 in most cases, but most high quality wine is between 0.75 and 1.0.
+
+Plot Three
+----------
+##Wine Quality comparative to Alcohol content
+
+```{r, warning=FALSE, message=FALSE}
+#Alcohol to Quality of Wine
+ggplot(data = df, aes(x=factor(quality), y=alcohol))+
+  geom_jitter(alpha = 1/3)+
+  geom_boxplot(alpha=1/10, color='green')+
+  stat_summary(fun.y='mean', geom='point', color='red')+
+  geom_line(stat = 'summary', fun.y = mean, color = 'black')+
+  labs(x='Quality (score between 3 and 9)',
+       y='Alcohol (% by Volume)',
+       title='Quality of Wine Relative to Alcohol Content')
 
 ```
 
-### Description Three
+Description Three
+-----------------
 
-There are some interesting results here in the plot.  I was not expecting a dip in the alcohol content across the quality levels.  We see that a wine quality of 3 starts with a mean alcohol content of 10.  There are also not a lot of wines with a quality of 3.  We then see a slight uptick in alcohol content with wines that have a quality of 4.  There are also more wines that have a quality of 4 than 3.  The interesting aspect is that wines with a quality rating of 5 have an average reduction in alcohol content, which dips down just below 10.  We also see many more wines at this quality level than either 3 or 4.  We experience another increase in alcohol content with wine quality levels of 6.  We are somewhere at an average of between 10 and 11 in alcohol content at quality level 6.  There is also a much bigger dispersement of the alcohol content at this quality level, with a majority between an alcohol content level of 9 and 13.  We start to see a decrease in the amount of wines represented at quality level 7.  We also see a continuous increase of the alcohol level to an average of between 11 and 12.  We finally see that there are a little over a dozen wines at a quality level of 8 and that the average alcohol content of those wines also increases to an average level of 12.
+This plot reviews the breakdown of quality per alcohol content.  We can see that there are mostly increases in the mean alcohol content as we rise in the quality of wine.
 
-# Reflection
+Reflection
+==========
 
 As we found out, there isn't a distinct formula to making great quality wine.  Taste is different for every individual.  Sweetness for some makes a better wine, while others prefer dry wines.  I honestly expected wines that were more sweet to be of higher quality.  Through investigation, our dataset indicated a strong positive correlation between alcohol content and the quality of wine.  Typically, the stronger and higher the alcohol content, the higher quality wine.  Although some of the data suggests that this is not always true, and other factors can cause the wine to be of varying quality.  If higher alcohol content was equivelant to higher quality wine, then winemakers would simply spike the wine to increase the alcohol content.  Other factors such as sulphates and citric acid can influence the taste of wine in a positive way.  Factors such as volatile acidity can negatively influence the taste of wine.  
 
